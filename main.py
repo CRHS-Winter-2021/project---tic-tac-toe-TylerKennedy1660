@@ -1,85 +1,85 @@
-##Tic Tac Toe
-#Name:
-#Date:
+# Tic Tak Toe
+# Tyler Kennedy 
+# Feb 17th 2021
 
-#1. (Var) Setup the empty board as a list
-theBoard = []
+import sys
 
-#2. (fun) Print the board.
-#in: a 10 item list (either x, o or ' ')
-#do: print a graphic for the board
-#out: none
-
-def printBoard(board):
-    pass
-
-#3a. (fun) Determine if player is X or O
-player1 = ''
-player2 = ''
-
-#in: None
-#do: get user choice, assign X/O to player1 and 2
-#out: None
-
-def chooseLetter():
-    pass
+#constants
+turn = 0
+stop = 0
+X_O_pos = []
 
 
-#3b. (fun) Choose starting player 1 or 2
-def chooseStart():
-    pass
+def print_board():
+  the_board = ('     |     |     \n  '+ X_O_pos[7] + '  |  '+ X_O_pos[8] + '  |  '+ X_O_pos[9] + '  \n_____|_____|_____\n     |     |     \n  '+ X_O_pos[4] + '  |  '+ X_O_pos[5] + '  |  '+ X_O_pos[6] + '  \n_____|_____|_____\n     |     |     \n  '+ X_O_pos[1] + '  |  '+ X_O_pos[2] + '  |  '+ X_O_pos[3] + '  \n     |     |     \n')
+  print(the_board)
 
-#4. (fun) Get player move
-#in: board as list, player as X or O
-#do: get user choice (1-9),
-#    check if the space is empty,
-#    update the board with the X or O at the user location
-#out: none
+def check_win():
 
-def playerMove(board, player):
-    pass
-
-
-#5. (fun) Check Winner
-#in: board as list, player as X or O
-#do: check all possible win scenarios
-#out: True for win, False otherwise
+  if X_O_pos[1] == 'X' and X_O_pos[2] == 'X' and X_O_pos[3] == 'X'  or  X_O_pos[4] == 'X' and X_O_pos[5] == 'X' and X_O_pos[6] == 'X'  or  X_O_pos[7] == 'X' and X_O_pos[8] == 'X' and X_O_pos[9] == 'X'  or  X_O_pos[7] == 'X' and X_O_pos[4] == 'X' and X_O_pos[1] == 'X'  or  X_O_pos[8] == 'X' and X_O_pos[5] == 'X' and X_O_pos[2] == 'X'  or  X_O_pos[9] == 'X' and X_O_pos[6] == 'X' and X_O_pos[3] == 'X'  or  X_O_pos[7] == 'X' and X_O_pos[5] == 'X' and X_O_pos[3] == 'X'  or  X_O_pos[9] == 'X' and X_O_pos[5] == 'X' and X_O_pos[1] == 'X':
     
-def checkWin(board, player):
-    pass
-
-
-#6. (fun) Check if board is full
-#Because there are 10 list items for 9 spots,
-#the first item theBoard[0] will always be ' '
-#in: board as list
-#do: count number of empty spaces, if there is no more spaces
-#out: return True if board is full, False otherwise
-
-def checkFull(board):
-    pass
-
-#7. Main function
-
-def main():
-    #print Welcome
-    #print instructions
-
-    #game play
-    #get player letter choice
+    print('X Wins!')
+    sys.exit()
     
-    #while board is not full
-    ###first player move
-        #player chooses move
-        #print board
-        #check win
-        #check board full
+  if X_O_pos[1] == 'O' and X_O_pos[2] == 'O' and X_O_pos[3] == 'O'  or  X_O_pos[4] == 'O' and X_O_pos[5] == 'O' and X_O_pos[6] == 'O'  or  X_O_pos[7] == 'O' and X_O_pos[8] == 'O' and X_O_pos[9] == 'O'  or  X_O_pos[7] == 'O' and X_O_pos[4] == 'O' and X_O_pos[1] == 'O'  or  X_O_pos[8] == 'O' and X_O_pos[5] == 'O' and X_O_pos[2] == 'O'  or  X_O_pos[9] == 'O' and X_O_pos[6] == 'O' and X_O_pos[3] == 'o'  or  X_O_pos[7] == 'O' and X_O_pos[5] == 'O' and X_O_pos[3] == 'O'  or  X_O_pos[9] == 'O' and X_O_pos[5] == 'O' and X_O_pos[1] == 'O':
+    print('O Wins!')
+    sys.exit()
 
-    ###second player move
-        #player chooses move
-        #print baord
-        #check win
-    
-    
-    pass
+def check_draw():
 
+  if X_O_pos.count(' ') == 0:
+    stop = 1
+    print('Draw!')
+    sys.exit()
+
+def play():
+  global turn
+
+  while stop == 0:
+  
+    if turn % 2 == 0:
+      x_o = 'X'
+      print("X's Turn")
+    else:
+      x_o = 'O'
+      print("O's Turn")
+  
+  
+    move = input('Where would you like to play ')
+
+    while move not in ['1','2','3','4','5','6','7','8','9'] or X_O_pos[int(move)] != ' ':
+      print('Invalid move')
+      move = input('Where would you like to play ')
+
+    X_O_pos[int(move)] = x_o
+
+    print_board()
+
+    check_win()
+
+    check_draw()
+    
+    turn +=1
+
+def setup(): 
+  global X_O_pos
+  global turn 
+
+  print("Welcome to Tyler's Tic Tac Toe\nThe spaces are related to the numbers on the number pad")
+
+  first_move = input("Player 1 would you like to be:\nX (1)\nO (2)\n")
+
+  while first_move != '1' and first_move != '2': 
+   print('You must pick 1 or 2')
+   first_move = input("Player 1 would you like to be:\nX (1)\nO (2)\n")
+  
+
+  if first_move == '2':
+    turn += 1
+
+  X_O_pos = ['not a space',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+
+setup()
+print_board()
+play()
